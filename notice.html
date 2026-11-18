@@ -16,7 +16,7 @@ button.secondary{background:#e6f0e9;color:#184d36}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-serif;color:#222;margin:0}
 .muted{font-size:14px;color:#637569}.notice{padding:12px;background:#edf5ef;border-radius:10px}
 @media(max-width:440px){.row{grid-template-columns:1fr}}
-</style></head>
+.mapurls{font-size:13px;margin:12px 0}.mapurls>div{margin:12px 0}.mapurls a{display:block;overflow-wrap:anywhere;word-break:break-all;color:#176a46;margin-top:4px}</style></head>
 <body><header><h1>주말 산행 공지 작성</h1><div>진짜 산에 가는 사람들</div></header>
 <main><p><a href="./">← 등산코스 130선으로 돌아가기</a></p>
 <section class="card">
@@ -34,7 +34,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-ser
 </div>
 <label for="meeting">집합장소</label><input id="meeting" value="첸청 68동">
 <div class="notice"><strong>자동 입력된 산행 목적지 지도</strong>
-<div class="links"><a id="amap" target="_blank" rel="noopener noreferrer">📍 고덕지도</a><a id="baidu" target="_blank" rel="noopener noreferrer">📍 바이두지도</a></div>
+<div class="links"><a id="amap" target="_blank" rel="noopener noreferrer">📍 고덕지도</a><a id="baidu" target="_blank" rel="noopener noreferrer">📍 바이두지도</a></div><div class="mapurls"><div><strong>고덕지도 URL</strong><div><a id="amapUrl" target="_blank" rel="noopener noreferrer"></a></div></div><div><strong>바이두지도 URL</strong><div><a id="baiduUrl" target="_blank" rel="noopener noreferrer"></a></div></div></div>
 <p class="muted">공지에 고덕지도와 바이두지도 URL이 함께 표시됩니다. 검색 결과에서 정확한 입구를 확인하세요.</p></div>
 </section>
 <section class="card" id="result"><h2>위챗 공지 미리보기</h2><pre id="preview"></pre>
@@ -54,7 +54,7 @@ b:'https://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D'+q
 };}
 function update(){
  const p=el('place').value.trim();const {a,b}=links(p);
- el('amap').href=p?a:'#';el('baidu').href=p?b:'#';
+ el('amap').href=p?a:'#';el('baidu').href=p?b:'#';el('amapUrl').href=p?a:'#';el('baiduUrl').href=p?b:'#';el('amapUrl').textContent=p?a:'';el('baiduUrl').textContent=p?b:'';
  const t=el('time').value.split(':');
  const tim=t.length===2?`${Number(t[0])<12?'오전':'오후'} ${Number(t[0])%12||12}시 ${t[1]}분`:'미정';
  const n=Math.min(30,Math.max(1,Number(el('count').value)||5));

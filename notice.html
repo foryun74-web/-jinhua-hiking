@@ -35,11 +35,11 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-ser
 <label for="meeting">집합장소</label><input id="meeting" value="첸청 68동">
 <div class="notice"><strong>자동 입력된 산행 목적지 지도</strong>
 <div class="links"><a id="amap" target="_blank" rel="noopener noreferrer">📍 고덕지도</a><a id="baidu" target="_blank" rel="noopener noreferrer">📍 바이두지도</a></div>
-<p class="muted">공지에는 긴 지도 주소 대신 지도 이름만 표시됩니다. 위챗의 실제 위치 카드 전송은 위챗 앱에서 별도로 해야 합니다. 검색 결과에서 정확한 입구를 확인하세요.</p></div>
+<p class="muted">공지에 고덕지도와 바이두지도 URL이 함께 표시됩니다. 검색 결과에서 정확한 입구를 확인하세요.</p></div>
 </section>
 <section class="card" id="result"><h2>위챗 공지 미리보기</h2><pre id="preview"></pre>
 <button id="copy" type="button">공지 전체 복사</button>
-<p class="muted" id="status" aria-live="polite">복사 후 위챗 공지방에 붙여넣으세요. 지도 URL은 표시되지 않습니다.</p></section>
+<p class="muted" id="status" aria-live="polite">복사 후 위챗 공지방에 붙여넣으세요. 지도 URL도 포함됩니다.</p></section>
 </main>
 <script>
 const ids=['place','ko','date','deadline','time','count','meeting'];
@@ -70,8 +70,11 @@ function update(){
 
 🗺️ 산행 목적지 지도 안내
 
-📍 고덕지도  |  📍 바이두지도
-(위챗에서 위치정보 카드로 별도 공유)
+📍 고덕지도 (高德地图)
+${a}
+
+📍 바이두지도 (百度地图)
+${b}
 
 🌿 이번 주말에도 함께 산에 오르며 건강도 챙기고 즐거운 시간 보내요!
 

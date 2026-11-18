@@ -35,7 +35,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-ser
 <label for="meeting">집합장소</label><input id="meeting" value="첸청 68동">
 <div class="notice"><strong>자동 입력된 산행 목적지 지도</strong>
 <div class="links"><a id="amap" target="_blank" rel="noopener noreferrer">📍 고덕지도 목적지</a><a id="route" target="_blank" rel="noopener noreferrer">🎬 산행코스 영상 (抖音)</a></div><div class="mapurls"><div><strong>목적지 지도 URL</strong><div><a id="amapUrl" target="_blank" rel="noopener noreferrer"></a></div></div><div><strong>抖音 영상 검색 URL</strong><div><a id="routeUrl" target="_blank" rel="noopener noreferrer"></a></div></div></div>
-<p class="muted">고덕지도에서 산행 목적지를, 抖音에서 해당 장소의 등산 영상을 검색합니다. 영상의 코스와 실제 등산로는 방문 전 확인하세요.</p></div>
+<p class="muted">위챗에서는 抖音 외부 링크가 차단될 수 있습니다. 열리지 않으면 아래 검색어를 복사해 抖音 앱 검색창에 붙여넣으세요.</p><div><strong>抖音 영상 검색어</strong> <span id="videoKeyword"></span> <button id="copyKeyword" type="button">검색어 복사</button></div></div>
 </section>
 <section class="card" id="result"><h2>위챗 공지 미리보기</h2><pre id="preview"></pre>
 <button id="copy" type="button">공지 전체 복사</button>
@@ -50,11 +50,11 @@ function nextSaturday(){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getD
 function day(v){if(!v)return '미정';const d=new Date(v+'T12:00:00');return `${d.getMonth()+1}월 ${d.getDate()}일(${['일','월','화','수','목','금','토'][d.getDay()]})`;}
 function links(p){const q=encodeURIComponent(p.trim());return {
 a:'https://uri.amap.com/search?keyword='+q+'&callnative=1',
-r:'https://m.douyin.com/search/'+encodeURIComponent(p.trim()+' 登山路线')+'?type=video'
+r:'https://www.douyin.com/search/'+encodeURIComponent(p.trim()+' 登山路线')+'?type=video'
 };}
 function update(){
  const p=el('place').value.trim();const {a,r}=links(p);
- el('amap').href=p?a:'#';el('route').href=p?r:'#';el('amapUrl').href=p?a:'#';el('routeUrl').href=p?r:'#';el('amapUrl').textContent=p?a:'';el('routeUrl').textContent=p?r:'';
+ el('videoKeyword').textContent=p?p+' 登山路线':'';el('amap').href=p?a:'#';el('route').href=p?r:'#';el('amapUrl').href=p?a:'#';el('routeUrl').href=p?r:'#';el('amapUrl').textContent=p?a:'';el('routeUrl').textContent=p?r:'';
  const t=el('time').value.split(':');
  const tim=t.length===2?`${Number(t[0])<12?'오전':'오후'} ${Number(t[0])%12||12}시 ${t[1]}분`:'미정';
  const n=Math.min(30,Math.max(1,Number(el('count').value)||5));
@@ -73,8 +73,9 @@ function update(){
 📍 고덕지도 (高德地图)
 ${a}
 
-🎬 산행코스 영상 (抖音) (登山路线)
+🎬 산행코스 영상 (抖音)
 ${r}
+▸ 위챗에서 안 열리면 抖音 앱에서 검색: ${p} 登山路线
 
 🌿 이번 주말에도 함께 산에 오르며 건강도 챙기고 즐거운 시간 보내요!
 
@@ -106,6 +107,7 @@ try{const saved=JSON.parse(localStorage.getItem('hikingNoticeDraft')||'null');if
 if(!el('date').value){const d=nextSaturday();el('date').value=fmtDate(d);const f=new Date(d);f.setDate(f.getDate()-1);el('deadline').value=fmtDate(f);}
 ids.forEach(id=>el(id).addEventListener('input',update));
 el('search').addEventListener('click',autofill);
+el('copyKeyword').addEventListener('click',async()=>{const word=el('videoKeyword').textContent;try{await navigator.clipboard.writeText(word);el('searchStatus').textContent='抖音 검색어를 복사했습니다.';}catch(e){const ta=document.createElement('textarea');ta.value=word;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();el('searchStatus').textContent='검색어 복사를 시도했습니다.';}});
 el('copy').onclick=async()=>{
  try{await navigator.clipboard.writeText(el('preview').textContent);el('status').textContent='복사했습니다. 위챗에 붙여넣으세요.';}
  catch(e){const ta=document.createElement('textarea');ta.value=el('preview').textContent;document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();el('status').textContent=ok?'복사했습니다.':'복사할 수 없습니다. 공지 내용을 길게 눌러 복사하세요.';}

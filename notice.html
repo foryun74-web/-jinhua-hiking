@@ -1,0 +1,29 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#184d36"><title>주말 산행 공지 작성</title><style>*{box-sizing:border-box}body{margin:0;background:#f3f6f3;color:#173e2d;font:16px system-ui,sans-serif}header{background:#184d36;color:white;padding:22px 16px}main{max-width:680px;margin:auto;padding:16px}h1{font-size:23px;margin:0 0 8px}a{color:#176a46}.card{background:white;border-radius:14px;padding:17px;margin-bottom:15px;box-shadow:0 2px 8px #1232}label{display:block;font-weight:700;margin:12px 0 5px}input,select{width:100%;padding:12px;border:1px solid #cbd8cf;border-radius:8px;font:inherit}button{background:#184d36;color:white;border:0;border-radius:9px;padding:13px 15px;font:inherit;font-weight:700;cursor:pointer}button.secondary{background:#e6f0e9;color:#184d36}button:disabled{opacity:.5}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.links a{background:#e6f0e9;border-radius:8px;padding:10px;text-decoration:none}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.65 system-ui,sans-serif;color:#222;margin:0}.muted{font-size:13px;color:#637569}footer{text-align:center;padding:20px}@media(max-width:420px){.row{grid-template-columns:1fr}}</style></head><body><header><h1>⛰️ 주말 산행 공지 작성</h1><div>진짜 산에 가는 사람들</div></header><main><p><a href="./">← 등산코스 130선으로 돌아가기</a></p><section class="card"><label for="place">산행장소 (중국어)</label><input id="place" value="五泄风景区" placeholder="예: 五泄风景区"><label for="ko">한국어 이름 (선택)</label><input id="ko" value="우시에 풍경구"><div class="row"><div><label for="date">산행 날짜</label><input id="date" type="date" value="2026-11-21"></div><div><label for="deadline">참석 확인 마감일</label><input id="deadline" type="date" value="2026-11-20"></div></div><div class="row"><div><label for="time">집합시간</label><input id="time" type="time" value="11:30"></div><div><label for="count">참가자 명단 칸 수</label><select id="count"><option>5</option><option>6</option><option>8</option><option>10</option><option>15</option></select></div></div><label for="meeting">집합장소</label><input id="meeting" value="첸청 68동"><p class="muted">중국어 장소명을 바꾸면 지도 검색 링크가 자동 생성됩니다. 정확한 산행 입구는 지도에서 확인하세요.</p><div class="links"><a id="amap" target="_blank" rel="noopener">고덕지도 확인</a><a id="baidu" target="_blank" rel="noopener">바이두지도 확인</a></div></section><section class="card"><h2>위챗 공지 미리보기</h2><pre id="preview"></pre><p><button id="copy">공지 전체 복사</button></p><p class="muted" id="status">복사 후 위챗 공지방에 붙여넣으세요.</p></section><footer><a href="./">등산코스 홈페이지</a></footer></main><script>const ids=['place','ko','date','deadline','time','count','meeting'];const el=id=>document.getElementById(id);function day(v){if(!v)return '미정';const d=new Date(v+'T12:00:00');return `${d.getMonth()+1}월 ${d.getDate()}일(${['일','월','화','수','목','금','토'][d.getDay()]})`;}function update(){const p=el('place').value.trim();const kw=encodeURIComponent(p);const a='https://uri.amap.com/search?keyword='+kw+'&callnative=1';const b='https://map.baidu.com/?newmap=1&ie=utf-8&s=s%26wd%3D'+kw;el('amap').href=a;el('baidu').href=b;const t=el('time').value.split(':');const tim=t.length===2?`${Number(t[0])<12?'오전':'오후'} ${Number(t[0])%12||12}시 ${t[1]}분`:'미정';const n=Math.min(30,Math.max(1,Number(el('count').value)||5));const title=p+(el('ko').value.trim()?` (${el('ko').value.trim()})`:'');const msg=`⛰️ 진짜 산에 가는 사람들 ⛰️
+
+📢 ${day(el('date').value)} 주말 산행 공지
+
+산행일자: ${day(el('date').value)}
+산행장소: ${title}
+집합시간: ${tim}
+집합장소: ${el('meeting').value}
+
+🗺️ 산행 목적지 지도 안내
+
+고덕지도 (高德地图)
+${a}
+
+바이두지도 (百度地图)
+${b}
+
+🌿 이번 주말에도 함께 산에 오르며 건강도 챙기고 즐거운 시간 보내요!
+
+📌 산행 참가 신청
+
+${day(el('deadline').value)}까지 참석 여부를 알려주세요.
+
+🙋 참가자 명단
+
+${Array.from({length:n},(_,i)=>i+1+'.').join('
+')}
+
+함께 걷는 즐거움, 함께하는 건강!`;el('preview').textContent=msg;try{localStorage.setItem('hikingNoticeDraft',JSON.stringify(Object.fromEntries(ids.map(id=>[id,el(id).value]))))}catch(e){}}try{const saved=JSON.parse(localStorage.getItem('hikingNoticeDraft')||'null');if(saved)ids.forEach(id=>{if(saved[id]!=null)el(id).value=saved[id]})}catch(e){}ids.forEach(id=>el(id).addEventListener('input',update));el('copy').onclick=async()=>{try{await navigator.clipboard.writeText(el('preview').textContent);el('status').textContent='복사했습니다. 위챗에 붙여넣으세요.'}catch(e){const ta=document.createElement('textarea');ta.value=el('preview').textContent;document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();el('status').textContent=ok?'복사했습니다. 위챗에 붙여넣으세요.':'복사가 차단되었습니다. 미리보기 내용을 길게 눌러 복사하세요.'}};update();</script></body></html>

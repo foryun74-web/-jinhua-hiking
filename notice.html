@@ -16,6 +16,7 @@ button.secondary{background:#e6f0e9;color:#184d36}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-serif;color:#222;margin:0}
 .muted{font-size:14px;color:#637569}.notice{padding:12px;background:#edf5ef;border-radius:10px}
 @media(max-width:440px){.row{grid-template-columns:1fr}}
+.video-search{margin-top:22px;padding-top:16px;border-top:1px solid #cbd8cf}
 .mapurls{font-size:13px;margin:12px 0}.mapurls>div{margin:12px 0}.mapurls a{display:block;overflow-wrap:anywhere;word-break:break-all;color:#176a46;margin-top:4px}</style></head>
 <body><header><h1>주말 산행 공지 작성</h1><div>진짜 산에 가는 사람들</div></header>
 <main><p><a href="./">← 등산코스 130선으로 돌아가기</a></p>
@@ -35,7 +36,7 @@ pre{white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.7 system-ui,sans-ser
 <label for="meeting">집합장소</label><input id="meeting" value="첸청 68동">
 <div class="notice"><strong>자동 입력된 산행 목적지 지도</strong>
 <div class="links"><a id="amap" target="_blank" rel="noopener noreferrer">📍 고덕지도 목적지</a><a id="route" target="_blank" rel="noopener noreferrer">🎬 산행코스 영상 (抖音)</a></div><div class="mapurls"><div><strong>목적지 지도 URL</strong><div><a id="amapUrl" target="_blank" rel="noopener noreferrer"></a></div></div><div><strong>抖音 영상 검색 URL</strong><div><a id="routeUrl" target="_blank" rel="noopener noreferrer"></a></div></div></div>
-<p class="muted">위챗에서는 抖音 외부 링크가 차단될 수 있습니다. 열리지 않으면 아래 검색어를 복사해 抖音 앱 검색창에 붙여넣으세요.</p><div><strong>抖音 영상 검색어</strong> <span id="videoKeyword"></span> <button id="copyKeyword" type="button">검색어 복사</button></div></div>
+<p class="muted">위챗에서는 抖音 외부 링크가 차단될 수 있습니다. 열리지 않으면 아래 검색어를 복사해 抖音 앱 검색창에 붙여넣으세요.</p><div class="video-search"><strong>抖音 영상 검색어</strong> <span id="videoKeyword"></span> <button id="copyKeyword" type="button">검색어 복사</button></div></div>
 </section>
 <section class="card" id="result"><h2>위챗 공지 미리보기</h2><pre id="preview"></pre>
 <button id="copy" type="button">공지 전체 복사</button>
@@ -75,6 +76,7 @@ ${a}
 
 🎬 산행코스 영상 (抖音)
 ${r}
+
 ▸ 抖音 앱에서 검색:
 ${p} 登山路线
 

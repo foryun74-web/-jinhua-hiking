@@ -63,10 +63,10 @@ function update(){
 
 📢 ${day(el('date').value)} 주말 산행 공지
 
-산행일자: ${day(el('date').value)}
-산행장소: ${title}
-집합시간: ${tim}
-집합장소: ${el('meeting').value}
+▸ 산행일자: ${day(el('date').value)}
+▸ 산행장소: ${title}
+▸ 집합시간: ${tim}
+▸ 집합장소: ${el('meeting').value}
 
 🗺️ 산행 목적지 지도 안내
 
@@ -84,7 +84,7 @@ ${day(el('deadline').value)}까지 참석 여부를 알려주세요.
 
 🙋 참가자 명단
 
-${Array.from({length:n},(_,i)=>i+1+'.').join('\n')}
+${Array.from({length:n},()=> '▸').join('\n')}
 
 함께 걷는 즐거움, 함께하는 건강!`;
  el('preview').textContent=msg;

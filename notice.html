@@ -90,7 +90,11 @@ ${day(el('deadline').value)}까지 참석 여부를 알려주세요.
 
 ${Array.from({length:n},()=> '▸').join('\n')}
 
-함께 걷는 즐거움, 함께하는 건강!`;
+※ 참가 인원, 회원들의 컨디션, 날씨 및 산행 여건 등을 종합적으로 고려하여 최종 코스를 결정하고 진행합니다
+
+🌿 함께 걷고, 함께 웃고, 함께 건강하게!
+
+🏔️ 매주 토요일, 산에서 만나요!`;
  el('preview').textContent=msg;
  try{localStorage.setItem('hikingNoticeDraft',JSON.stringify(Object.fromEntries(ids.map(id=>[id,el(id).value]))));}catch(e){}
 }
